@@ -1,0 +1,6 @@
+parameters:
+
+services:
+    wordpress_service:
+       class: SNDLL\PlatformBundle\Controller\WordpressController
+       arguments: [%database.wordpress.dsn%, %database.wordpress.username%, %database.wordpress.password%, @doctrine.orm.entity_manager]

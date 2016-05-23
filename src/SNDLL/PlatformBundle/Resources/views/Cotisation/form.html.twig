@@ -1,0 +1,64 @@
+<div class="row col-md-12">
+
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {% if form_errors(form) %}
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            {{ form_errors(form) }}
+        </div>
+    {% endif %}
+
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Informations Cotisation</div>
+            <div class="panel-body">
+                {% if form.adherent is defined %}
+                    <div class="form-group col-md-12">
+                        {{ form_label(form.adherent, "Code adhérent *", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.adherent) }}
+                        {{ form_widget(form.adherent, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                {% endif %}
+                <div class="form-group col-md-12">
+                    {{ form_label(form.datedebut, "Date de début *", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.datedebut) }}
+                    {{ form_widget(form.datedebut, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.datefin, "Date de fin *", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.datefin) }}
+                    {{ form_widget(form.datefin, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.typeadhesion, "Le type d'adhésion *", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.typeadhesion) }}
+                    {{ form_widget(form.typeadhesion, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.prixcotisationttc, "Prix de la cotisation *", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.prixcotisationttc) }}
+                    {{ form_widget(form.prixcotisationttc, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.modereglement, "Mode de règlement *", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.modereglement) }}
+                    {{ form_widget(form.modereglement, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.datereglement, "La date de règlement *", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.datereglement) }}
+                    {{ form_widget(form.datereglement, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
+</p>
+
+{{ form_rest(form) }}
+
+{{ form_end(form) }}

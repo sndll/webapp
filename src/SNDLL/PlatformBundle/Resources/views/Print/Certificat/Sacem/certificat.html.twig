@@ -1,0 +1,60 @@
+{% extends "SNDLLPlatformBundle:Print:lettreA5.html.twig" %}
+
+{% block title %}
+    Certificat d'adhésion
+{% endblock %}
+
+{% block header %}
+    <h1>Certificat d'adhésion au SNDLL</h1>
+    <p>
+        Le certificat d'adhésion de l'établissement "{{ etablissement.enseigne }}"
+    </p>
+{% endblock %}
+
+{% block coordonnees_lettre %}
+    <div id="enseigne">
+        <strong>{{ etablissement.sacem.libelle }}</strong>
+    </div>
+    <div id="rue">
+        {{ etablissement.sacem.coordonnees.adresse }}
+    </div>
+    <div id="ville">
+        {{ etablissement.sacem.coordonnees.codepostal }} - {{ etablissement.sacem.coordonnees.ville }}
+    </div>
+{% endblock %}
+
+{% block date %}
+    Gujan Mestras, le {{ 'now'|date('d/m/Y') }}
+{% endblock %}
+
+{% block corps %}
+    <div id="etablissement-info">
+        <div id="enseigne">
+            <strong>{{ etablissement.enseigne }}</strong>
+        </div>
+        <div id="nomjuridique">
+            <strong>{{ etablissement.nomjuridique }}</strong>
+        </div>
+        <div id="rue">
+            {{ etablissement.coordonnees.adresse }}
+        </div>
+        <div id="ville">
+            {{ etablissement.coordonnees.codepostal }} - {{ etablissement.coordonnees.ville }}
+        </div>
+        {% if responsable != null %}
+            <div id="responsable">
+                Responsable : {% if responsable.civilite %}{{ responsable.civilite.libelle }}{% endif %} {{ responsable.nom }} {{ responsable.prenom }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div id="adhesion-info">
+        <div id="code_adherent">
+            Code adhérent : {{ etablissement.adherent.codeadherent }}
+        </div>
+        <div id="periode_validite">
+            Certificat d'adhésion valable du {{cotisationvalide.datedebut|date('d/m/Y') }} au {{ cotisationvalide.datefin|date('d/m/Y') }}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "SNDLLPlatformBundle:OGC:ogclayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Liste{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<div class="panel panel-primary">
+		<div class="panel-heading">Liste des centres SACEM</div>
+		<table class="table"
+               data-toggle="table"
+               data-sort-name="code_adherent"
+               data-sort-order="desc"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-pagination="true"
+               data-height="500"
+               data-row-style="rowStyle">
+			<thead>
+			<tr>
+				<th data-field="code_sacem" data-sortable="true" data-align="center">Code du centre SACEM</th>
+				<th data-field="libelle" data-sortable="true" data-align="center">Libelle</th>
+				<th data-field="responsable" data-sortable="true" data-align="center">Responsable</th>
+                <th data-field="bouton" data-align="center"></th>
+			</tr>
+			</thead>
+
+			<tbody>
+			{% for sacem in listeSacem %}
+				<tr class ="default" >
+					<td>
+                        {{ sacem.codesacem }}
+					</td>
+					<td>
+						{{ sacem.libelle }}
+					</td>
+					<td>
+						{{ sacem.nomresponsable }} {{ sacem.prenomresponsable }}
+					</td>
+                    <td>
+                        <a href="{{ path('sndll_ogc_sacem_view', {'sacem_id': sacem.codesacem}) }}" class="btn btn-primary col-md-12">
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            Voir le centre
+                        </a>
+                    </td>
+				</tr>
+			{% else %}
+				<tr class="warning"><td>Pas (encore !) de centre Sacem</td></tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+    <div class="row col-md-12">
+        <div id="btn-ajout-sacem" class="btn-group col-md-4" role="group">
+            <a href="{{ path('sndll_ogc_sacem_add') }}" class="btn btn-success col-md-12">
+                <i class="glyphicon glyphicon-plus"></i>
+                Ajouter un centre Sacem
+            </a>
+        </div>
+        <div id="btn-gen-certif-sacem" class="btn-group col-md-4 col-md-offset-4" role="group">
+            <a href="{{ path('sndll_ogc_sacem_export_certificats') }}" class="btn btn-default col-md-12">
+                <i class="glyphicon glyphicon-export"></i>
+                Générer certificats Sacem
+            </a>
+        </div>
+	</div>
+{% endblock %}

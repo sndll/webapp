@@ -1,0 +1,31 @@
+{% extends "SNDLLPlatformBundle:OGC:ogclayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Exporter
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="alert alert-warning" role="alert">
+        <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <b>Attention : la génération des certificats peut prendre de 1 à 5 minutes en fonction du nombre de certificats générés !</b>
+        </p>
+    </div>
+
+    <div class="row info-form">
+        <p>
+            Veuillez choisir les certificats à exporter en choisissant une date de début et une date de fin. Cet export contiendra tous les certificats Spre dont la date de règlement de la cotisation associée est comprise entre ces deux dates.
+        </p>
+    </div>
+
+    {{ include("SNDLLPlatformBundle:OGC/Spre:exportCertificatsForm.html.twig") }}
+    <p>
+        <a href="{{ path('sndll_ogc_spre_view') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la fiche Spre
+        </a>
+    </p>
+
+{% endblock %}

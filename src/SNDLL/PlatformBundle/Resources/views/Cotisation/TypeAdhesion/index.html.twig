@@ -1,0 +1,59 @@
+{% extends "SNDLLPlatformBundle:Cotisation:cotisationlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Liste{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Liste des types d'adhésions</div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Libellé</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for typeadhesion in listeTypeAdhesion %}
+                <tr class ="default" >
+                    <td>
+                        {{ typeadhesion.libelle }}
+                    </td>
+                    <td>
+                        {% if typeadhesion.cotisations|length == 0 %}
+                            <a href="{{ path('sndll_typeadhesion_delete', {'ta_id': typeadhesion.id}) }}" class="btn btn-danger col-md-12">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                Supprimer
+                            </a>
+                        {% else %}
+                            <a href="#" class="btn btn-danger col-md-12 disabled">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                Supprimer
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="warning"><td>Pas (encore !) de cotisation</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div id="btn-retour-precedent" class="btn-group col-md-4" role="group">
+            <a href="{{ path('sndll_cotisation') }}" class="btn btn-default col-md-12">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour au menu précédent
+            </a>
+        </div>
+
+        <div id="btn-ajouter-cot" class="btn-group col-md-5" role="group">
+            <a href="{{ path('sndll_typeadhesion_add') }}" class="btn btn-success col-md-12">
+                <i class="glyphicon glyphicon-plus"></i>
+                Ajouter un nouveau type d'adhésion
+            </a>
+        </div>
+    </div>
+{% endblock %}

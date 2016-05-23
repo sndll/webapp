@@ -1,0 +1,401 @@
+{% extends "SNDLLPlatformBundle:Etablissement:etablissementlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Fiche{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<h2>Fiche de renseignement de l'établissement "{{ etablissement.enseigne }}"</h2>
+	{% if etablissement.contacts|length == 0 %}
+		<div class="alert alert-warning" role="alert">
+			<p>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				Cet établissement n'a aucun contact associé !
+			</p>
+		</div>
+	{% endif %}
+
+	{% if not etablissement.sacem %}
+		<div class="alert alert-warning" role="alert">
+			<p>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				Cet établissement n'est affilié à aucun centre SACEM !
+			</p>
+		</div>
+	{% endif %}
+
+	{% if not etablissement.adherent %}
+		<div class="alert alert-warning" role="alert">
+			<p>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				Cet établissement n'a jamais adhéré au SNDLL !
+			</p>
+		</div>
+	{% elseif cotisationvalide == null %}
+		<div class="alert alert-warning" role="alert">
+			<p>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				Cet établissement n'est pas à jour dans ses cotisations !
+			</p>
+		</div>
+	{% endif %}
+
+	<div class="row">
+		<div id="btn-print-eta" class="btn-group col-md-3 col-md-offset-9" role="group">
+			<button  type="button" class="btn btn-default dropdown-toggle col-md-12" data-toggle="dropdown" aria-expanded="false">
+				<i class="glyphicon glyphicon-print"></i>
+				Générer ...
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="{{ path('sndll_etablissement_fiche_print', { 'eta_id': etablissement.id }) }}">La fiche de renseignements</a></li>
+            </ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Informations Etablissement</div>
+				<div class="panel-body">
+					<p>
+						Nom de l'enseigne : {{ etablissement.enseigne }}
+					</p>
+					<p>
+						Forme Juridique : {{ etablissement.formejuridique.libelle }}
+					</p>
+					<p>
+						Nom Juridique : {{ etablissement.nomjuridique }}
+					</p>
+					<p>
+						Site Internet : {{ etablissement.siteinternet }}
+					</p>
+					<p>
+						Code APE : {{ etablissement.codeape.codeape }} ({{ etablissement.codeape.libelle }})
+					</p>
+					<p>
+						Code Siret : {{ etablissement.codesiret }}
+					</p>
+					<p>
+						Date de création : {{ etablissement.datecreation|date('d/m/Y') }}
+					</p>
+					{% if etablissement.capacite %}
+						<p>
+							Capacité : {{ etablissement.capacite.libelle }} personnes
+						</p>
+					{% endif %}
+					<p>
+						Nombre de salariés : {{ etablissement.nombresalaries }} personnes
+					</p>
+					{% if etablissement.etatetablissement %}
+						<p>
+							Etat de l'établissement : {{ etablissement.etatetablissement.libelle }}
+						</p>
+					{% endif %}
+					<p>
+						Commentaires : {{ etablissement.commentaires }}
+					</p>
+				</div>
+				<div class="panel-footer">Dernière modification : le {{ etablissement.datedernieremodification|date('d/m/Y à H:i:s') }}
+				Dernière consultation : <!-- le {{ etablissement.datedernieremodification|date('d/m/Y à H:i:s') }} -->
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">Coordonnées Etablissement</div>
+				<div class="panel-body">
+                    {% if etablissement.coordonnees %}
+                        <p>
+                            Adresse : {{ etablissement.coordonnees.adresse }} - {{ etablissement.coordonnees.codepostal }} - {{ etablissement.coordonnees.ville }}
+                        </p>
+                        {% if etablissement.coordonnees.informationscomplementaires %}
+                            <p>
+                                Informations complémentaires : {{ etablissement.coordonnees.informationscomplementaires }}
+                            </p>
+                        {% endif %}
+                        <p>
+                            Téléphone Fixe : {{ etablissement.coordonnees.telephoneprincipal }}
+                        </p>
+                        <p>
+                            Téléphone Portable : {{ etablissement.coordonnees.telephonesecondaire }}
+                        </p>
+                        <p>
+                            Fax : {{ etablissement.coordonnees.fax }}
+                        </p>
+                        <p>
+                            Email : {{ etablissement.coordonnees.email }}
+                        </p>
+                        <p>
+                            Autorisation : {{ etablissement.coordonnees.autorisation.libelle }}
+                        </p>
+                    {% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div id="btn-modif-eta" class="btn-group col-md-4" role="group">
+			<a href="{{ path('sndll_etablissement_edit', {'eta_id': etablissement.id}) }}" class="btn btn-primary col-md-12">
+				<i class="glyphicon glyphicon-edit"></i>
+				Modifier l'établissement
+			</a>
+		</div>
+
+        <div id="btn-supprimer-eta" class="btn-group col-md-4 col-md-offset-4" role="group">
+			<a href="{{ path('sndll_etablissement_delete', {'eta_id': etablissement.id}) }}" class="btn btn-danger col-md-12">
+				<i class="glyphicon glyphicon-trash"></i>
+				Supprimer l'établissement
+			</a>
+		</div>
+	</div>
+
+	{% for contact in etablissement.contacts %}
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Informations Contact</div>
+					<div class="panel-body">
+						{% if contact.civilite %}
+                            <p>
+                                Civilite : {{ contact.civilite.libelle }}
+                            </p>
+                        {% endif %}
+						<p>
+							Nom du contact : {{ contact.nom }}
+						</p>
+						<p>
+							Prénom du contact : {{ contact.prenom }}
+						</p>
+						<p>
+							Role du contact : {{ contact.role.libelle }}
+						</p>
+						<p>
+							Commentaires : {{ contact.commentaires }}
+						</p>
+					</div>
+					<div class="panel-footer">Dernière modification : le {{ contact.datedernieremodification|date('d/m/Y à H:i:s') }}</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="panel panel-info">
+					<div class="panel-heading">Coordonnées Contact</div>
+					<div class="panel-body">
+                        {% if contact.coordonnees %}
+                            <p>
+                                Adresse : {{ contact.coordonnees.adresse }} - {{ contact.coordonnees.codepostal }} - {{ contact.coordonnees.ville }}
+                            </p>
+                            {% if contact.coordonnees.informationscomplementaires %}
+                                <p>
+                                    Informations complémentaires : {{ contact.coordonnees.informationscomplementaires }}
+                                </p>
+                            {% endif %}
+                            <p>
+                                Téléphone Fixe : {{ contact.coordonnees.telephoneprincipal }}
+                            </p>
+                            <p>
+                                Téléphone Portable : {{ contact.coordonnees.telephonesecondaire }}
+                            </p>
+                            <p>
+                                Fax : {{ contact.coordonnees.fax }}
+                            </p>
+                            <p>
+                                Email : {{ contact.coordonnees.email }}
+                            </p>
+                            <p>
+                                Autorisation : {{ contact.coordonnees.autorisation.libelle }}
+                            </p>
+                        {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<div class="row">
+		<div id="btn-ajout-con" class="btn-group col-md-4" role="group">
+			<a href="{{ path('sndll_contact_edit', {'con_id': contact.id}) }}" class="btn btn-primary col-md-12">
+				<i class="glyphicon glyphicon-edit"></i>
+				Modifier le contact
+			</a>
+		</div>
+
+		<div id="btn-supprimer-eta" class="btn-group col-md-4 col-md-offset-4" role="group">
+			<a href="{{ path('sndll_contact_delete', {'con_id': contact.id}) }}" class="btn btn-danger col-md-12">
+				<i class="glyphicon glyphicon-trash"></i>
+				Supprimer le contact
+			</a>
+		</div>
+	</div>
+
+	{% endfor %}
+
+	<div class="row">
+		<div id="btn-ajout-con" class="btn-group col-md-4" role="group">
+			<a href="{{ path('sndll_contact_add', {'eta_id': etablissement.id}) }}" class="btn btn-success col-md-12">
+				<i class="glyphicon glyphicon-plus"></i>
+				Ajouter un contact
+			</a>
+		</div>
+	</div>
+
+	{% if etablissement.sacem %}
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Informations Sacem</div>
+					<div class="panel-body">
+						<p>
+							Code Sacem associé : {{ etablissement.sacem.codesacem }}
+						</p>
+						<p>
+							Délégation Sacem associée : {{ etablissement.sacem.libelle }}
+						</p>
+						<p>
+							Responsable Sacem : {{ etablissement.sacem.civilite.libelle }} {{ etablissement.sacem.nomresponsable }} {{ etablissement.sacem.prenomresponsable }}
+						</p>
+					</div>
+					<div class="panel-footer">Dernière modification : le {{ etablissement.sacem.datedernieremodification|date('d/m/Y à H:i:s') }}</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-info">
+					<div class="panel-heading">Coordonnées Sacem</div>
+					<div class="panel-body">
+						<p>
+							Adresse : {{ etablissement.sacem.coordonnees.adresse }} - {{ etablissement.sacem.coordonnees.codepostal }} - {{ etablissement.sacem.coordonnees.ville }}
+						</p>
+						<p>
+							Téléphone : {{ etablissement.sacem.coordonnees.telephoneprincipal }}
+						</p>
+						<p>
+							Fax : {{ etablissement.sacem.coordonnees.fax }}
+						</p>
+						<p>
+							Email : {{ etablissement.sacem.coordonnees.email }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="btn-rattacher-sacem" class="btn-group col-md-4" role="group">
+				<a href="{{ path('sndll_ogc_sacem_select', {'eta_id': etablissement.id}) }}" class="btn btn-primary col-md-12">
+					<i class="glyphicon glyphicon-transfer"></i>
+					Changer de centre SACEM
+				</a>
+			</div>
+		</div>
+
+	{% else %}
+
+		<div class="row">
+			<div id="btn-attacher-sacem" class="btn-group col-md-4" role="group">
+				<a href="{{ path('sndll_ogc_sacem_select', {'eta_id': etablissement.id}) }}" class="btn btn-primary col-md-12">
+					<i class="glyphicon glyphicon-pushpin"></i>
+					Attacher à un centre SACEM
+				</a>
+			</div>
+		</div>
+
+	{% endif %}
+
+	{% if etablissement.adherent %}
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Informations Adhésion</div>
+					<div class="panel-body">
+						<p>
+							Son code adhérent est : {{ etablissement.adherent.codeadherent }}
+						</p>
+						{% if etablissement.adherent.datepremierecotisation %}
+							<p>
+								Date de la première cotisation : {{ etablissement.adherent.datepremierecotisation|date('d/m/Y') }}
+							</p>
+						{% endif %}
+						<p>
+							Etat des cotisations : {% if cotisationvalide != null %} Cotisation à jour {% else %} Pas de cotisation valide {% endif %}
+						</p>
+                        <p>
+                            Login site : {% if etablissement.adherent.identifiants != null %} {{ etablissement.adherent.identifiants.loginwp }} {% endif %}
+                        </p>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p>
+                                    Mot de passe site : {% if etablissement.adherent.identifiants != null %} {{ etablissement.adherent.identifiants.passwordwp }} {% endif %}
+                                </p>
+                            </div>
+
+                            {% if etablissement.adherent.identifiants != null %}
+                                <div id="btn-renew-password-wordpress" class="btn-group col-md-3" role="group btn-group-xs">
+                                    <a href="{{ path('sndll_wordpress_renew_password', {'adh_code': etablissement.adherent.codeadherent}) }}" class="btn btn-warning col-md-12">
+                                        <i class="glyphicon glyphicon-refresh"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+
+					</div>
+					<div class="panel-footer">Dernière modification : le {{ etablissement.adherent.datedernieremodification|date('d/m/Y à H:i:s') }}</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-info">
+					<div class="panel-heading">5 Dernières Cotisations</div>
+					<table class="table">
+						<thead>
+						<tr>
+							<th>Type d'adhésion</th>
+                            <th></th>
+						</tr>
+						</thead>
+
+						<tbody>
+							{% for cotisation in cotisations %}
+								<tr {% if date(cotisation.datefin) >= date() and date(cotisation.datedebut) <= date() %} class="success" {% else %} class ="default" {% endif %} >
+									<td>
+										{{ cotisation.typeadhesion.libelle }}
+									</td>
+                                    <td>
+                                        <a href="{{ path('sndll_cotisation_view', {'cot_id': cotisation.id}) }}" class="btn btn-primary col-md-12">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                            Voir la cotisation
+                                        </a>
+                                    </td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="row">
+		<div id="btn-ajouter-cot" class="btn-group col-md-4" role="group">
+			<a href="{{ path('sndll_cotisation_add_etablissement', {'eta_id': etablissement.id}) }}" class="btn btn-success col-md-12">
+				<i class="glyphicon glyphicon-plus"></i>
+				Ajouter une cotisation
+			</a>
+		</div>
+        {% if etablissement.adherent.codeadherent is defined %}
+            <div id="btn-maj-wordpress" class="btn-group col-md-4" role="group">
+                <a href="{{ path('sndll_wordpress_maj', {'adh_code': etablissement.adherent.codeadherent}) }}" class="btn btn-primary col-md-12">
+                    <i class="glyphicon glyphicon-refresh"></i>
+                    Mettre à jour sur sndll.info
+                </a>
+            </div>
+        {% endif %}
+	</div>
+	<div class="row">
+		<div id="btn-retour-liste-eta" class="btn-group col-md-3" role="group">
+			<a href="{{ path('sndll_etablissement') }}" class="btn btn-default col-md-12">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+				Retour à la liste
+			</a>
+		</div>
+	</div>
+
+{% endblock %}

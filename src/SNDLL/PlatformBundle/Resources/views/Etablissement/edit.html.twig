@@ -1,0 +1,25 @@
+{% extends "SNDLLPlatformBundle:Etablissement:etablissementlayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="alert alert-warning" role="alert">
+        <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Vous éditez un établissement déjà existant.
+        </p>
+    </div>
+    <h2>Modifier un établissement</h2>
+
+    {{ include("SNDLLPlatformBundle:Etablissement:form.html.twig") }}
+    <p>
+        <a href="{{ path('sndll_etablissement_view', {'eta_id': etablissement.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la fiche de l'établissement
+        </a>
+    </p>
+
+{% endblock %}

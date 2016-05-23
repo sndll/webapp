@@ -1,0 +1,25 @@
+{% extends "SNDLLPlatformBundle:Cotisation:cotisationlayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="alert alert-info" role="alert">
+        <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Vous éditez une cotisation déjà existante.
+        </p>
+    </div>
+    <h2>Modifier une cotisation</h2>
+
+    {{ include("SNDLLPlatformBundle:Cotisation:form.html.twig") }}
+    <p>
+        <a href="{{ path('sndll_cotisation_view', {'cot_id': cotisation.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la fiche de la cotisation
+        </a>
+    </p>
+
+{% endblock %}

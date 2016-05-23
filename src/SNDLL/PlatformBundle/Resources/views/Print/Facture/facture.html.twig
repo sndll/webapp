@@ -1,0 +1,65 @@
+{% extends "SNDLLPlatformBundle:Print:lettreA5.html.twig" %}
+
+{% block title %}
+    Certificat d'adhésion
+{% endblock %}
+
+{% block header %}
+    <h1>Facture</h1>
+    <p>
+        La facture de la cotisation au SNDLL
+    </p>
+{% endblock %}
+
+{% block coordonnees_lettre %}
+    <div id="enseigne">
+        <strong>{{ cotisation.adherent.etablissement.enseigne }}</strong>
+    </div>
+
+    {% if cotisation.adherent.etablissement.nomjuridique %}
+        <div id="nomjuridique">
+            <strong>{{ cotisation.adherent.etablissement.nomjuridique }}</strong>
+        </div>
+    {% endif %}
+
+    <div id="rue">
+        {{ cotisation.adherent.etablissement.coordonnees.adresse }}
+    </div>
+
+    <div id="ville">
+        {{ cotisation.adherent.etablissement.coordonnees.codepostal }} - {{ cotisation.adherent.etablissement.coordonnees.ville }}
+    </div>
+
+{% endblock %}
+
+{% block date %}
+    Gujan Mestras, le {{ 'now'|date('d/m/Y') }}
+{% endblock %}
+
+{% block corps %}
+    <div id="facture-info">
+        <div id="type_adhesion">
+            <strong>{{ cotisation.typeadhesion.libelle }}</strong>
+        </div>
+        <div id="code-adherent">
+            Code adhérent : {{ cotisation.adherent.codeadherent }}
+        </div>
+        <div id="periode-validite">
+            Adhésion valable du {{cotisation.datedebut|date('d/m/Y') }} au {{ cotisation.datefin|date('d/m/Y') }}
+        </div>
+        <div id="mode-reglement">
+            Mode de règlement : {{cotisation.modereglement.libelle}}
+        </div>
+        <div id="montant">
+            Montant : {{cotisation.prixcotisationttc}} €
+        </div>
+        <div id="date-reglement">
+            Date du règlement : {{cotisation.datereglement|date('d/m/Y')}}
+        </div>
+    </div>
+    <div id="info-complementaires">
+        <div id="reduction">
+            Cette somme est entièrement déductible des B.I.C. (cotisation à un groupement corporatif)
+        </div>
+    </div>
+{% endblock %}

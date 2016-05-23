@@ -1,0 +1,75 @@
+{% extends "SNDLLPlatformBundle:OGC:ogclayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Fiche{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<h2>Centre Spre</h2>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Informations Centre Spre</div>
+				<div class="panel-body">
+					<p>
+						Libelle : {{ spre.libelle }}
+					</p>
+					<p>
+						Civilité Responsable : {{ spre.civilite.libelle }}
+					</p>
+					<p>
+						Nom Responsable : {{ spre.nomresponsable }}
+					</p>
+					<p>
+						Prénom Responsable : {{ spre.prenomresponsable }}
+					</p>
+				</div>
+				<div class="panel-footer">
+					Dernière modification : le {{ spre.datedernieremodification|date('d/m/Y à H:m:s') }}
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">Coordonnées Centre Spre</div>
+				<div class="panel-body">
+					<p>
+						Adresse : {{ spre.coordonnees.adresse }} - {{ spre.coordonnees.codepostal }} - {{ spre.coordonnees.ville }}
+					</p>
+					{% if spre.coordonnees.informationscomplementaires %}
+						<p>
+							Informations complémentaires : {{ spre.coordonnees.informationscomplementaires }}
+						</p>
+					{% endif %}
+					<p>
+						Téléphone : {{ spre.coordonnees.telephoneprincipal }}
+					</p>
+					<p>
+						Fax : {{ spre.coordonnees.fax }}
+					</p>
+					<p>
+						Email : {{ spre.coordonnees.email }}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div id="btn-modif-cot" class="btn-group col-md-4" role="group">
+			<a href="{{ path('sndll_ogc_spre_edit') }}" class="btn btn-primary col-md-12">
+				<i class="glyphicon glyphicon-edit"></i>
+				Modifier ces informations
+			</a>
+		</div>
+
+        <div id="btn-gen-certif-spre" class="btn-group col-md-4 col-md-offset-4" role="group">
+            <a href="{{ path('sndll_ogc_spre_export_certificats') }}" class="btn btn-default col-md-12">
+                <i class="glyphicon glyphicon-export"></i>
+                Générer certificats Spre
+            </a>
+        </div>
+	</div>
+
+{% endblock %}

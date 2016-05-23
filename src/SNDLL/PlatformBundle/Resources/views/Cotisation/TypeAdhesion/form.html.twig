@@ -1,0 +1,32 @@
+<div class="row col-md-12">
+
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {% if form_errors(form) %}
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            {{ form_errors(form) }}
+        </div>
+    {% endif %}
+
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Informations Type Adhésion</div>
+            <div class="panel-body">
+                <div class="form-group col-md-12">
+                    {{ form_label(form.libelle, "Libellé *", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.libelle) }}
+                    {{ form_widget(form.libelle, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
+</p>
+
+{{ form_rest(form) }}
+
+{{ form_end(form) }}

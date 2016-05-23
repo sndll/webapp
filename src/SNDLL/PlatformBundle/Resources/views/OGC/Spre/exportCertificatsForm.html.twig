@@ -1,0 +1,33 @@
+<div class="row">
+
+    {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+    {% if form_errors(form) %}
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            {{ form_errors(form) }}
+        </div>
+    {% endif %}
+
+    <div class="form-group col-md-5">
+        {{ form_label(form.datedebut, "Entre le :", {'label_attr': {'class': 'control-label col-md-4'}}) }}
+        {{ form_errors(form.datedebut) }}
+        {{ form_widget(form.datedebut, {'attr': {'class': ''}}) }}
+    </div>
+    <div class="form-group col-md-5">
+        {{ form_label(form.datefin, "et le :", {'label_attr': {'class': 'control-label col-md-4'}}) }}
+        {{ form_errors(form.datefin) }}
+        {{ form_widget(form.datefin, {'attr': {'class': ''}}) }}
+    </div>
+    <div class="form-group col-md-2">
+        {{ form_widget(form.exporter, {'attr': {'class': 'btn btn-primary col-md-12'}}) }}
+    </div>
+</div>
+
+<p>
+
+</p>
+
+{{ form_rest(form) }}
+
+{{ form_end(form) }}

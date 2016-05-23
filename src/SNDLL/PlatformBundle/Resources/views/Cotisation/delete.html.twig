@@ -1,0 +1,26 @@
+{% extends "SNDLLPlatformBundle:Cotisation:cotisationlayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Supprimer
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h2>Supprimer une cotisation</h2>
+
+    <p>
+        Etes-vous certain de vouloir supprimer la cotisation "{{ cotisation.id }}" ?
+    </p>
+
+    <form action="{{ path('sndll_cotisation_delete', {'cot_id': cotisation.id}) }}" method="post">
+        <a href="{{ path('sndll_cotisation_view', {'cot_id': cotisation.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la liste
+        </a>
+
+        <input type="submit" value="Supprimer" class="btn btn-danger" />
+
+        {{ form_rest(form) }}
+    </form>
+
+{% endblock %}

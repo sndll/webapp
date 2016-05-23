@@ -1,0 +1,192 @@
+{% extends "SNDLLPlatformBundle:Print:fiche.html.twig" %}
+
+{% block title %}
+    Certificat d'adhésion
+{% endblock %}
+
+{% block header %}
+    <h1>Fiche de renseignements </h1>
+    <p>
+        La fiche de renseignements de l'établissement "{{ etablissement.enseigne }}"
+    </p>
+{% endblock %}
+
+{% block info_etablissement %}
+    <h2>Info établissement</h2>
+    <p>
+        Nom de l'enseigne : {{ etablissement.enseigne }}
+    </p>
+    <p>
+        Forme Juridique : {{ etablissement.formejuridique.libelle }}
+    </p>
+    <p>
+        Nom Juridique : {{ etablissement.nomjuridique }}
+    </p>
+    <p>
+        Site Internet : {{ etablissement.siteinternet }}
+    </p>
+    <p>
+        Code APE : {{ etablissement.codeape.codeape }} ({{ etablissement.codeape.libelle }})
+    </p>
+    <p>
+        Code Siret : {{ etablissement.codesiret }}
+    </p>
+    <p>
+        Date de création : {{ etablissement.datecreation|date('d/m/Y') }}
+    </p>
+    {% if etablissement.capacite %}
+        <p>
+            Capacité : {{ etablissement.capacite.libelle }} personnes
+        </p>
+    {% endif %}
+    <p>
+        Nombre de salariés : {{ etablissement.nombresalaries }} personnes
+    </p>
+    {% if etablissement.etatetablissement %}
+        <p>
+            Etat de l'établissement : {{ etablissement.etatetablissement.libelle }}
+        </p>
+    {% endif %}
+    <p>
+        Commentaires : {{ etablissement.commentaires }}
+    </p>
+{% endblock %}
+
+{% block coordonnees_etablissement %}
+    <h2>Coordonnées établissement</h2>
+    {% if etablissement.coordonnees %}
+        <p>
+            Adresse : {{ etablissement.coordonnees.adresse }} - {{ etablissement.coordonnees.codepostal }} - {{ etablissement.coordonnees.ville }}
+        </p>
+        {% if etablissement.coordonnees.informationscomplementaires %}
+            <p>
+                Informations complémentaires : {{ etablissement.coordonnees.informationscomplementaires }}
+            </p>
+        {% endif %}
+        <p>
+            Téléphone Fixe : {{ etablissement.coordonnees.telephoneprincipal }}
+        </p>
+        <p>
+            Téléphone Portable : {{ etablissement.coordonnees.telephonesecondaire }}
+        </p>
+        <p>
+            Fax : {{ etablissement.coordonnees.fax }}
+        </p>
+        <p>
+            Email : {{ etablissement.coordonnees.email }}
+        </p>
+        <p>
+            Autorisation : {{ etablissement.coordonnees.autorisation.libelle }}
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block info_contact %}
+    <h2>Info contact</h2>
+    {% if contact.civilite %}
+        <p>
+            Civilite : {{ contact.civilite.libelle }}
+        </p>
+    {% endif %}
+    <p>
+        Nom du contact : {{ contact.nom }}
+    </p>
+    <p>
+        Prénom du contact : {{ contact.prenom }}
+    </p>
+    <p>
+        Role du contact : {{ contact.role.libelle }}
+    </p>
+    <p>
+        Commentaires : {{ contact.commentaires }}
+    </p>
+{% endblock %}
+
+{% block coordonnees_contact %}
+    <h2>Coordonnées contact</h2>
+    {% if contact.coordonnees %}
+        <p>
+            Adresse : {{ contact.coordonnees.adresse }} - {{ contact.coordonnees.codepostal }} - {{ contact.coordonnees.ville }}
+        </p>
+        {% if contact.coordonnees.informationscomplementaires %}
+            <p>
+                Informations complémentaires : {{ contact.coordonnees.informationscomplementaires }}
+            </p>
+        {% endif %}
+        <p>
+            Téléphone Fixe : {{ contact.coordonnees.telephoneprincipal }}
+        </p>
+        <p>
+            Téléphone Portable : {{ contact.coordonnees.telephonesecondaire }}
+        </p>
+        <p>
+            Fax : {{ contact.coordonnees.fax }}
+        </p>
+        <p>
+            Email : {{ contact.coordonnees.email }}
+        </p>
+        <p>
+            Autorisation : {{ contact.coordonnees.autorisation.libelle }}
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block info_sacem %}
+    <h2>Info centre Sacem</h2>
+    <p>
+        Code Sacem associé : {{ etablissement.sacem.codesacem }}
+    </p>
+    <p>
+        Délégation Sacem associée : {{ etablissement.sacem.libelle }}
+    </p>
+    <p>
+        Responsable Sacem : {{ etablissement.sacem.civilite.libelle }} {{ etablissement.sacem.nomresponsable }} {{ etablissement.sacem.prenomresponsable }}
+    </p>
+{% endblock %}
+
+{% block coordonnees_sacem %}
+    <h2>Coordonnées centre Sacem</h2>
+    <p>
+        Adresse : {{ etablissement.sacem.coordonnees.adresse }} - {{ etablissement.sacem.coordonnees.codepostal }} - {{ etablissement.sacem.coordonnees.ville }}
+    </p>
+    <p>
+        Téléphone : {{ etablissement.sacem.coordonnees.telephoneprincipal }}
+    </p>
+    <p>
+        Fax : {{ etablissement.sacem.coordonnees.fax }}
+    </p>
+    <p>
+        Email : {{ etablissement.sacem.coordonnees.email }}
+    </p>
+{% endblock %}
+
+{% block info_adhesion %}
+    <h2>Info adhésion</h2>
+    <p>
+        Son code adhérent est : {{ etablissement.adherent.codeadherent }}
+    </p>
+    {% if etablissement.adherent.datepremierecotisation %}
+        <p>
+            Date de la première cotisation : {{ etablissement.adherent.datepremierecotisation|date('d/m/Y') }}
+        </p>
+    {% endif %}
+    <p>
+        Etat des cotisations : {% if cotisationvalide != null %} Cotisation à jour {% else %} Pas de cotisation valide {% endif %}
+    </p>
+    <p>
+        Login sndll.info : {{ etablissement.adherent.codeadherent }}
+    </p>
+    <p>
+        Mdp sndll.info : {{ etablissement.adherent.identifiants.passwordwp }}
+    </p>
+
+{% endblock %}
+
+{% block dernieres_cotisations %}
+    <h2>Dernières cotisations</h2>
+    {% for cotisation in cotisations %}
+        <p>
+            {{ cotisation.typeadhesion.libelle }} - du {{ cotisation.datedebut|date('d/m/Y') }} au {{ cotisation.datefin|date('d/m/Y') }}
+        </p>
+    {% endfor %}
+{% endblock %}

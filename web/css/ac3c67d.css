@@ -1,0 +1,510 @@
+.bootstrap-table .table {
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #dddddd;
+    border-collapse: collapse !important;
+    border-radius: 1px;
+}
+
+.fixed-table-container {
+    position: relative;
+    clear: both;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+
+.fixed-table-header {
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+}
+
+.fixed-table-body {
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.fixed-table-container table {
+    width: 100%;
+}
+
+.fixed-table-container thead th {
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border-left: 1px solid #dddddd;
+}
+
+.fixed-table-container thead th:first-child {
+    border-left: none;
+    border-top-left-radius: 4px;
+    -webkit-border-top-left-radius: 4px;
+    -moz-border-radius-topleft: 4px;
+}
+
+.fixed-table-container thead th .th-inner {
+    padding: 8px;
+    line-height: 24px;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fixed-table-container thead th .sortable {
+    cursor: pointer;
+}
+
+.fixed-table-container tbody td {
+    border-left: 1px solid #dddddd;
+}
+
+.fixed-table-container tbody tr:first-child td {
+    border-top: none;
+}
+
+.fixed-table-container tbody td:first-child {
+    border-left: none;
+}
+
+/* the same color with .active */
+.fixed-table-container tbody .selected td {
+    background-color: #f5f5f5;
+}
+
+.fixed-table-container .bs-checkbox {
+    text-align: center;
+}
+
+.fixed-table-container .bs-checkbox .th-inner {
+    padding: 8px 0;
+}
+
+.fixed-table-container input[type="radio"],
+.fixed-table-container input[type="checkbox"] {
+    margin: 0 auto !important;
+}
+
+.fixed-table-container .no-records-found {
+    text-align: center;
+}
+
+
+.fixed-table-pagination .pagination,
+.fixed-table-pagination .pagination-detail {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.fixed-table-pagination .pagination a {
+    padding: 6px 12px;
+    line-height: 1.428571429;
+}
+
+.fixed-table-pagination .pagination-info {
+    line-height: 34px;
+    margin-right: 5px;
+}
+
+.fixed-table-pagination .btn-group {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.fixed-table-pagination .dropup  .dropdown-menu {
+    margin-bottom: 0;
+}
+
+.fixed-table-pagination .page-list {
+    display: inline-block;
+}
+
+.fixed-table-toolbar .columns-left {
+    margin-right: 5px;
+}
+
+.fixed-table-toolbar .columns-right {
+    margin-left: 5px;
+}
+
+.fixed-table-toolbar .columns label {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+}
+
+.fixed-table-toolbar .bars,
+.fixed-table-toolbar .search,
+.fixed-table-toolbar .columns {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 34px;
+}
+
+.fixed-table-pagination li.disabled a {
+    pointer-events: none;
+    cursor: default;
+}
+
+.fixed-table-loading {
+    display: none;
+    position: absolute;
+    top: 42px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: #fff;
+    text-align: center;
+}
+
+.fixed-table-body .card-view .title {
+    font-weight: bold;
+    display: inline-block;
+    min-width: 30%;
+    text-align: left !important;
+}
+
+/* support bootstrap 2 */
+.fixed-table-body thead th .th-inner {
+    box-sizing: border-box;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.fixed-table-toolbar .dropdown-menu {
+    text-align: left;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.fixed-table-toolbar .btn-group>.btn-group {
+    display: inline-block;
+    margin-left: -1px !important;
+}
+
+.fixed-table-toolbar .btn-group>.btn-group>.btn {
+    border-radius: 0;
+}
+
+.fixed-table-toolbar .btn-group>.btn-group:first-child>.btn {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.fixed-table-toolbar .btn-group>.btn-group:last-child>.btn {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.bootstrap-table .table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+/* support bootstrap 3 */
+.bootstrap-table .table thead>tr>th {
+    padding: 0;
+    margin: 0;
+}
+
+.pull-right .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+/* calculate scrollbar width */
+p.fixed-table-scroll-inner {
+    width: 100%;
+    height: 200px;
+}
+
+div.fixed-table-scroll-outer {
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+}
+.panel-body {
+    background-color: #eeeeee;
+}
+
+.panel-footer {
+    background-color: #eeeeee;
+}
+
+#btn-modif-eta, #btn-ajout-con, #btn-rattacher-sacem, #btn-attacher-sacem, #btn-ajouter-cot, #btn-retour-liste-eta, #btn-supprimer-eta, #btn-print-eta, #btn-retour-liste-cot, #btn-print-cot, #btn-modif-cot, #btn-add-cot, #btn-modif-cot, #btn-add-cot, #btn-export-cot, #btn-ajout-eta, #btn-id-temp-generer, #btn-page-login-site {
+    margin-bottom: 20px;
+}
+
+.info-form p
+{
+    padding: 20px;
+}
+#footer {
+    text-align:center;
+    background-color: #eeeeee;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+#footer p {
+
+}
+#header img
+{
+    width:100%;
+    height:100%;
+    display: inline-block;
+}
+
+#header h1
+{
+    margin-top: 0px;
+    color: #007dca;
+}
+#menu {
+
+}
+
+#menu a {
+    background-color: #eeeeee;
+    text-align: center;
+    color: #000000;
+}
+
+#menu .active a {
+    background-color: #428BCA;
+    color: #ffffff;
+}
+
+#menu a:hover {
+    background-color: #3071A9;
+    color: #ffffff;
+}
+
+
+#container {
+    height: 1000px;
+}
+
+#header-print {
+    text-align:center;
+    height: 90px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+#header-print h1
+{
+    margin-top: 10px;
+}
+
+#lettre-haut
+{
+    height: 200px;
+    width: 100%;
+}
+
+#logo {
+    float:left;
+    width: 45%;
+}
+
+#logo img
+{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 20px;
+}
+
+#coordonnees-lettre {
+    float:left;
+    text-align:center;
+    height: 130px;
+    padding: 19px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 45%;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+#enseigne {
+    margin-top: 10px;
+}
+
+#date
+{
+    text-align:center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    margin-left: 50%;
+    height: 50px;
+    font-size: 25px;
+}
+
+#corps
+{
+    margin-top: 60px;
+    text-align:center;
+    height: 400px;
+    font-size: 25px;
+}
+
+#etablissement-info
+{
+    margin-bottom: 30px;
+}
+
+#adhesion-info
+{
+
+}
+
+#footer-print {
+    text-align:center;
+    background-color: #eeeeee;
+    border-radius: 8px;
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+#footer-print p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+#type_adhesion
+{
+    margin-bottom: 30px;
+}
+#montant
+{
+    text-align:center;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    background-color: #eeeeee;
+    border-radius: 8px;
+    min-height: 20px;
+    padding: 19px;
+    width: 300px;
+    border: 1px solid #e3e3e3;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+#info-complementaires
+{
+    margin-top: 50px;
+    font-size: 15px;
+}
+
+.row
+{
+    width: 100%;
+    position: relative;
+    float: left;
+}
+.case
+{
+    text-align:left;
+    background-color: #eeeeee;
+    border-radius: 8px;
+    min-height: 20px;
+    padding: 19px;
+    width: 43%;
+    border: 1px solid #e3e3e3;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+
+    margin-bottom: 10px;
+    position: relative;
+
+}
+
+.case p {
+    font-size: 12px;
+    margin: 0px;
+}
+
+.case h2 {
+    font-size: 20px;
+    margin-top: 0px;
+}
+
+.case-gauche
+{
+    float: left;
+}
+
+.case-droite
+{
+    float: right;
+}
+
+#info-etablissement
+{
+    height: 220px;
+}
+
+#coordonnees-etablissement
+{
+    height: 220px;
+}
+
+#info-contact
+{
+    height: 130px;
+}
+
+#coordonnees-contact
+{
+    height: 130px;
+}
+
+#info-sacem
+{
+    height: 130px;
+}
+
+#coordonnees-sacem
+{
+    height: 130px;
+}
+
+#info-adhesion
+{
+    height: 150px;
+}
+
+#dernieres-cotisations
+{
+    height: 150px;
+}

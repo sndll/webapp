@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>{% block title %}Web-App du SNDLL{% endblock %}</title>
+
+    {% block stylesheets %}
+        {% stylesheets
+        '@SNDLLPlatformBundle/Resources/public/css/print.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+    {% endblock %}
+</head>
+
+<body>
+<div id="container">
+    <div id="header-print">
+        {% block header %}
+        {% endblock %}
+    </div>
+    <div id="content">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    {% block footer %}
+    {% endblock %}
+</div>
+
+{% block javascripts %}
+{% endblock %}
+
+</body>
+</html>

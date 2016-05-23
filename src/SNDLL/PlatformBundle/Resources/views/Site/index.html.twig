@@ -1,0 +1,104 @@
+{% extends "SNDLLPlatformBundle:Site:sitelayout.html.twig" %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="row col-md-12">
+        <div id="chart_div" class="col-md-6"></div>
+        <div id="panel_identifiant_temp" class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Identifiants Temporaires</div>
+                <table class="table"
+                       data-toggle="table"
+                       data-cache="true"
+                       data-url="{{ path('sndll_site_identifiants_temporaires_json') }}"
+                       data-sort-name="id"
+                       data-sort-order="desc"
+                       data-search="true"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-query-params="queryParams"
+                       data-pagination="true"
+                       data-height="300"
+                       data-row-style="rowStyle">
+                    <thead>
+                    <tr>
+                        <th data-field="login_WP" data-sortable="true" data-align="center" >login</th>
+                        <th data-field="password_WP" data-sortable="true" data-align="center" >mdp</th>
+                        <th data-field="date_fin" data-sortable="true" data-align="center" >valable jusqu'au</th>
+                    </tr>
+                    </thead>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-md-12">
+        <div id="btn-page-login-site" class="btn-group col-md-5" role="group">
+            <a href="http://www.sndll.info/wp-login.php" class="btn btn-primary col-md-12">
+                <i class="glyphicon glyphicon-log-in"></i>
+                Accéder à la page de login du site
+            </a>
+        </div>
+
+        <div id="btn-id-temp-generer" class="btn-group col-md-5" role="group">
+            <button type="button" class="btn btn-success dropdown-toggle col-md-12" data-toggle="dropdown" aria-expanded="false">
+                <i class="glyphicon glyphicon-refresh"></i>
+                Générer un identifiant temporaire...
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu col-md-12" role="menu">
+                <li><a href="{{ path('sndll_wordpress_gen_temp_jour') }}">Valable 24h</a></li>
+                <li><a href="{{ path('sndll_wordpress_gen_temp_semaine') }}">Valable une semaine</a></li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(drawChart1);
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart1()
+        {
+            var jsonData = $.ajax({
+                url: "{{ path('sndll_site_chart1_json') }}",
+                dataType:"json",
+                async: false
+            }).responseText;
+
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+
+            // Set chart options
+            var options = {
+                'title':'Adhérents avec / sans adresse email',
+                'width':350,
+                'height':225,
+                'slices': {
+                    0: { color: 'green' },
+                    1: { color: 'orange' }
+                }
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+    {{ parent() }}
+
+{% endblock %}

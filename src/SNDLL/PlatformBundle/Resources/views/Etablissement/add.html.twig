@@ -1,0 +1,27 @@
+{% extends "SNDLLPlatformBundle:Etablissement:etablissementlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Ajout{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<h2>Ajouter un établissement</h2>
+
+	{{ include("SNDLLPlatformBundle:Etablissement:form.html.twig") }}
+
+	<p>
+		<a href="{{ path('sndll_etablissement') }}" class="btn btn-default">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+			Retour à la liste
+		</a>
+	</p>
+	<div class="alert alert-info" role="alert">
+		<p>
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			Attention : cet établissement sera ajouté directement dans la base des établissements après validation du formulaire.
+		</p>
+		<p>
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			Les champs marqués d'une étoile (*) sont obligatoires
+		</p>
+	</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "::printlayout.html.twig" %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+    <div id="lettre-haut">
+        <div id="logo">
+            <img src="{{ app.request.getBasePath() }}/images/LogoBW.png" />
+        </div>
+        <div id="coordonnees-lettre">
+            {% block coordonnees_lettre %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div id="date">
+        {% block date %}
+        {% endblock %}
+    </div>
+
+    <div id="corps">
+        {% block corps %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <div id="footer-print">
+        <p>
+            Siège Administratif : "La Guérinière" BP 40 - 33470 Gujan-Mestras
+        </p>
+        <p>
+            Siège Social : 74-76 Avenue de la Grande Armée - 75017 Paris
+        </p>
+        <p>
+            E-mail : sndll@orange.fr - Tel : 05 56 66 08 78 - Fax : 05 56 66 13 39
+        </p>
+        <p>
+            SIRET 32115491600027 - Code NAF 911 A - Syndicat Professionnel N°16518 Paris
+        </p>
+    </div>
+{% endblock %}

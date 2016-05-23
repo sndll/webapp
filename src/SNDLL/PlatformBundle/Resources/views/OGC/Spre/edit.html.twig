@@ -1,0 +1,25 @@
+{% extends "SNDLLPlatformBundle:OGC:ogclayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="alert alert-warning" role="alert">
+        <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Vous éditez un les informations concernant la Spre.
+        </p>
+    </div>
+    <h2>Modifier les informations</h2>
+
+    {{ include("SNDLLPlatformBundle:OGC/Spre:form.html.twig") }}
+    <p>
+        <a href="{{ path('sndll_ogc_spre_view') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la fiche
+        </a>
+    </p>
+
+{% endblock %}

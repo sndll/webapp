@@ -1,0 +1,25 @@
+{% extends "SNDLLPlatformBundle:Contact:contactlayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="alert alert-warning" role="alert">
+        <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Vous éditez un contact déjà existant.
+        </p>
+    </div>
+    <h2>Modifier un contact</h2>
+
+    {{ include("SNDLLPlatformBundle:Contact:form.html.twig") }}
+    <p>
+        <a href="{{ path('sndll_etablissement_view', {'eta_id': contact.etablissement.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la fiche
+        </a>
+    </p>
+
+{% endblock %}

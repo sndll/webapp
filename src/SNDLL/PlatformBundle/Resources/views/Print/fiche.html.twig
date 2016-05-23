@@ -1,0 +1,56 @@
+{% extends "::printlayout.html.twig" %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+    <div id="renseignements-etablissement" class="row">
+        <div id="info-etablissement" class="case case-gauche">
+            {% block info_etablissement %}
+            {% endblock %}
+        </div>
+        <div id="coordonnees-etablissement" class="case case-droite">
+            {% block coordonnees_etablissement %}
+            {% endblock %}
+        </div>
+    </div>
+
+    {% for contact in etablissement.contacts %}
+        <div id="renseignements-contact" class="row">
+            <div id="info-contact" class="case case-gauche">
+                {% block info_contact %}
+                {% endblock %}
+            </div>
+            <div id="coordonnees-contact" class="case case-droite">
+                {% block coordonnees_contact %}
+                {% endblock %}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if etablissement.sacem %}
+        <div id="renseignements-sacem" class="row">
+            <div id="info-sacem" class="case case-gauche">
+                {% block info_sacem %}
+                {% endblock %}
+            </div>
+            <div id="coordonnees-sacem" class="case case-droite">
+                {% block coordonnees_sacem %}
+                {% endblock %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if etablissement.adherent %}
+        <div id="renseignements-adhesion" class="row">
+            <div id="info-adhesion" class="case case-gauche">
+                {% block info_adhesion %}
+                {% endblock %}
+            </div>
+            <div id="dernieres-cotisations" class="case case-droite">
+                {% block dernieres_cotisations %}
+                {% endblock %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

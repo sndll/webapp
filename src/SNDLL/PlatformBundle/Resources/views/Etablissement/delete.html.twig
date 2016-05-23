@@ -1,0 +1,33 @@
+{% extends "SNDLLPlatformBundle:Etablissement:etablissementlayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Supprimer
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h2>Supprimer un établissement</h2>
+
+    <div class="alert alert-danger" role="alert">
+        <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Supprimer un établissement supprimera également : tous les contacts ainsi que toutes les cotisations qui lui sont associés !
+            Cela supprimera également l'accès au site du SNDLL !
+        </p>
+    </div>
+    <p>
+        Etes-vous certain de vouloir supprimer l'établissement "{{ etablissement.enseigne }}" ?
+    </p>
+
+    <form action="{{ path('sndll_etablissement_delete', {'eta_id': etablissement.id}) }}" method="post">
+        <a href="{{ path('sndll_etablissement_view', {'eta_id': etablissement.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la fiche
+        </a>
+
+        <input type="submit" value="Supprimer" class="btn btn-danger" />
+
+        {{ form_rest(form) }}
+    </form>
+
+{% endblock %}

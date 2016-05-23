@@ -1,0 +1,26 @@
+{% extends "SNDLLPlatformBundle:Cotisation:cotisationlayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Supprimer
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h2>Supprimer un type d'adhésion</h2>
+
+    <p>
+        Etes-vous certain de vouloir supprimer le type d'adhésion "{{ typeadhesion.libelle }}" ?
+    </p>
+
+    <form action="{{ path('sndll_typeadhesion_delete', {'ta_id': typeadhesion.id}) }}" method="post">
+        <a href="{{ path('sndll_typeadhesion') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la liste
+        </a>
+
+        <input type="submit" value="Supprimer" class="btn btn-danger" />
+
+        {{ form_rest(form) }}
+    </form>
+
+{% endblock %}

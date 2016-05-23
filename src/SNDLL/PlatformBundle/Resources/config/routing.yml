@@ -1,0 +1,243 @@
+sndll_platform_homepage:
+    path:     /
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:index }
+
+sndll_etablissement:
+    path:     /eta
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:index }
+sndll_etablissement_view:
+    path:     /eta/info/{eta_id}
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:view }
+    requirements:
+        eta_id: \d+
+sndll_etablissement_add:
+    path:     /eta/add
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:add }
+sndll_etablissement_edit:
+    path:     /eta/edit/{eta_id}
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:edit }
+    requirements:
+        eta_id: \d+
+sndll_etablissement_delete:
+    path:     /eta/del/{eta_id}
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:delete }
+    requirements:
+        eta_id: \d+
+sndll_etablissement_export_all:
+    path:     /eta/export/all
+    defaults: { _controller: SNDLLPlatformBundle:Export:exportAllEtablissements }
+sndll_etablissement_export_with_cotisation:
+    path:     /eta/export/with_cotisation
+    defaults: { _controller: SNDLLPlatformBundle:Export:exportEtablissementsActuellementAdherents }
+sndll_etablissement_export_without_cotisation:
+    path:     /eta/export/without_cotisation
+    defaults: { _controller: SNDLLPlatformBundle:Export:exportEtablissementsActuellementNonAdherents }
+sndll_etablissement_export_appel_cotisation_annee_en_cours:
+    path:     /eta/export/appel/anneeencours
+    defaults: { _controller: SNDLLPlatformBundle:Export:exportCoordonneesAppelCotisationAnneeEnCours }
+sndll_etablissement_export_appel_cotisation_annee_prochaine:
+    path:     /eta/export/appel/anneeprochaine
+    defaults: { _controller: SNDLLPlatformBundle:Export:exportCoordonneesAppelCotisationAnneeProchaine }
+sndll_etablissement_fiche_print:
+    path:     /eta/print/fiche/{eta_id}
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:fichePrint }
+    requirements:
+        eta_id: \d+
+sndll_etablissement_fiche_view:
+    path:     /eta/view/fiche/{eta_id}
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:ficheView }
+    requirements:
+        eta_id: \d+
+
+sndll_cotisation:
+    path:     /cot
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:index }
+sndll_cotisation_view:
+    path:     /cot/info/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:view }
+    requirements:
+        cot_id: \d+
+sndll_cotisation_add:
+    path:     /cot/add
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:add }
+sndll_cotisation_add_etablissement:
+    path:     /cot/add/{eta_id}
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:addWithEtablissement }
+    requirements:
+        eta_id: \d+
+sndll_cotisation_edit:
+    path:     /cot/edit/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:edit }
+    requirements:
+        cot_id: \d+
+sndll_cotisation_delete:
+    path:     /cot/del/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:delete }
+    requirements:
+        cot_id: \d+
+sndll_cotisation_export_all:
+    path:     /cot/export/all
+    defaults: { _controller: SNDLLPlatformBundle:Export:exportAllCotisations }
+sndll_cotisation_export_encours:
+    path:     /cot/export/encours
+    defaults: { _controller: SNDLLPlatformBundle:Export:exportCotisationsEnCours }
+sndll_typeadhesion:
+    path:     /cot/ta
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:indexTypeAdhesion }
+sndll_typeadhesion_add:
+    path:     /cot/ta/add
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:addTypeAdhesion }
+sndll_typeadhesion_delete:
+    path:     /cot/ta/del/{ta_id}
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:deleteTypeAdhesion }
+    requirements:
+        ta_id: \d+
+sndll_cotisation_facture_print:
+    path:     /cot/print/facture/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:facturePrint }
+    requirements:
+        cot_id: \d+
+sndll_cotisation_facture_view:
+    path:     /cot/view/facture/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:factureView }
+    requirements:
+        cot_id: \d+
+
+sndll_ogc_sacem:
+    path:     /ogc/sacem
+    defaults: { _controller: SNDLLPlatformBundle:OGC:indexSacem }
+sndll_ogc_sacem_select:
+    path:     /ogc/sacem/select/{eta_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:selectSacem }
+    requirements:
+        eta_id: \d*
+sndll_ogc_sacem_etablissement_assoc:
+    path:     /ogc/sacem/{eta_id}/{sacem_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:assocSacemEtablissement }
+    requirements:
+        eta_id: \d*
+        sacem_id: \d*
+sndll_ogc_sacem_view:
+    path:     /ogc/sacem/info/{sacem_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:viewSacem }
+    requirements:
+        sacem_id: \d+
+sndll_ogc_sacem_add:
+    path:     /ogc/sacem/add
+    defaults: { _controller: SNDLLPlatformBundle:OGC:addSacem }
+sndll_ogc_sacem_edit:
+    path:     /ogc/sacem/edit/{sacem_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:editSacem }
+    requirements:
+        sacem_id: \d+
+sndll_ogc_sacem_delete:
+    path:     /ogc/sacem/delete/{sacem_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:deleteSacem }
+    requirements:
+        sacem_id: \d+
+sndll_ogc_sacem_export_certificats:
+    path:     /ogc/sacem/export/certificats
+    defaults: { _controller: SNDLLPlatformBundle:OGC:exportCertificatsSacem }
+sndll_ogc_spre_view:
+    path:     /ogc/spre/info/{spre_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:viewSpre, spre_id: 1 }
+    requirements:
+        spre_id: \d+
+sndll_ogc_spre_edit:
+    path:     /ogc/spre/edit/{spre_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:editSpre, spre_id: 1 }
+    requirements:
+        spre_id: \d+
+sndll_ogc_spre_export_certificats:
+    path:     /ogc/spre/export/certificats
+    defaults: { _controller: SNDLLPlatformBundle:OGC:exportCertificatsSpre }
+sndll_ogc_certificat_sacem_print:
+    path:     /ogc/print/certificat/sacem/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:certificatSacemPrint }
+    requirements:
+        cot_id: \d+
+sndll_ogc_certificat_sacem_view:
+    path:     /ogc/view/certificat/sacem/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:certificatSacemView }
+    requirements:
+        cot_id: \d+
+sndll_ogc_certificat_spre_print:
+    path:     /ogc/print/certificat/spre/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:certificatSprePrint }
+    requirements:
+        cot_id: \d+
+sndll_ogc_certificat_spre_view:
+    path:     /ogc/view/certificat/spre/{cot_id}
+    defaults: { _controller: SNDLLPlatformBundle:OGC:certificatSpreView }
+    requirements:
+        cot_id: \d+
+
+sndll_contact_add:
+    path:     /con/add/{eta_id}
+    defaults: { _controller: SNDLLPlatformBundle:Contact:add }
+    requirements:
+        eta_id: \d+
+sndll_contact_edit:
+    path:     /con/edit/{con_id}
+    defaults: { _controller: SNDLLPlatformBundle:Contact:edit }
+    requirements:
+        con_id: \d+
+sndll_contact_delete:
+    path:     /con/delete/{con_id}
+    defaults: { _controller: SNDLLPlatformBundle:Contact:delete }
+    requirements:
+        con_id: \d+
+
+sndll_platform_stats:
+    path:     /stats
+    defaults: { _controller: SNDLLPlatformBundle:Platform:index }
+sndll_platform_carte_adherents_villes:
+    path:     /carte/adherents/villes
+    defaults: { _controller: SNDLLPlatformBundle:Platform:carteAdherentsVilles }
+sndll_platform_chart1_json:
+    path:     /chart1JsonData
+    defaults: { _controller: SNDLLPlatformBundle:Platform:chart1JsonData }
+sndll_platform_chart2_json:
+    path:     /chart2JsonData
+    defaults: { _controller: SNDLLPlatformBundle:Platform:chart2JsonData }
+sndll_platform_chart3_json:
+    path:     /chart3JsonData
+    defaults: { _controller: SNDLLPlatformBundle:Platform:chart3JsonData }
+sndll_platform_chart4_json:
+    path:     /chart4JsonData
+    defaults: { _controller: SNDLLPlatformBundle:Platform:chart4JsonData }
+sndll_platform_chart5_json:
+    path:     /chart5JsonData
+    defaults: { _controller: SNDLLPlatformBundle:Platform:chart5JsonData }
+sndll_etablissement_json:
+    path:     /eta/json
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:indexJson }
+sndll_cotisation_json:
+    path:     /cot/json
+    defaults: { _controller: SNDLLPlatformBundle:Cotisation:indexJson }
+
+sndll_site:
+    path:     /site
+    defaults: { _controller: SNDLLPlatformBundle:Site:index }
+sndll_site_chart1_json:
+    path:     /site/chart1JsonData
+    defaults: { _controller: SNDLLPlatformBundle:Site:chart1JsonData }
+sndll_wordpress_maj:
+    path:     /wp/maj/{adh_code}
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:majWordPress }
+    requirements:
+        adh_code: \d+
+sndll_wordpress_gen_temp_jour:
+    path:     /wp/gen/temp/jour
+    defaults: { _controller: SNDLLPlatformBundle:Site:genTempJourWordPress }
+sndll_wordpress_gen_temp_semaine:
+    path:     /wp/gen/temp/semaine
+    defaults: { _controller: SNDLLPlatformBundle:Site:genTempSemaineWordPress }
+sndll_wordpress_renew_password:
+    path:     /wp/renew/password/{adh_code}
+    defaults: { _controller: SNDLLPlatformBundle:Etablissement:renewPasswordWordPress }
+    requirements:
+        adh_code: \d+
+sndll_site_identifiants_temporaires_json:
+    path:     /wp/identifiants/temp/json
+    defaults: { _controller: SNDLLPlatformBundle:Site:indexJson }

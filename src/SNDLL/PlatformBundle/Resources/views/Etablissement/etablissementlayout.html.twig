@@ -1,0 +1,12 @@
+{% extends "SNDLLPlatformBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Etablissements{% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+{% endblock %}

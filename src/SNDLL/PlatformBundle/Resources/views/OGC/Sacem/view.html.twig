@@ -1,0 +1,85 @@
+{% extends "SNDLLPlatformBundle:OGC:ogclayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Fiche{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<h2>Centre Sacem</h2>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Informations Centre Sacem</div>
+				<div class="panel-body">
+					<p>
+						Code Sacem : {{ sacem.codesacem }}
+					</p>
+					<p>
+						Libelle : {{ sacem.libelle }}
+					</p>
+					<p>
+						Civilité Responsable : {{ sacem.civilite.libelle }}
+					</p>
+					<p>
+						Nom Responsable : {{ sacem.nomresponsable }}
+					</p>
+					<p>
+						Prénom Responsable : {{ sacem.prenomresponsable }}
+					</p>
+				</div>
+				<div class="panel-footer">
+					Dernière modification : le {{ sacem.datedernieremodification|date('d/m/Y à H:i:s') }}
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">Coordonnées Centre Sacem</div>
+				<div class="panel-body">
+					<p>
+						Adresse : {{ sacem.coordonnees.adresse }} - {{ sacem.coordonnees.codepostal }} - {{ sacem.coordonnees.ville }}
+					</p>
+					{% if sacem.coordonnees.informationscomplementaires %}
+						<p>
+							Informations complémentaires : {{ sacem.coordonnees.informationscomplementaires }}
+						</p>
+					{% endif %}
+					<p>
+						Téléphone : {{ sacem.coordonnees.telephoneprincipal }}
+					</p>
+					<p>
+						Fax : {{ sacem.coordonnees.fax }}
+					</p>
+					<p>
+						Email : {{ sacem.coordonnees.email }}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div id="btn-retour-liste-cot" class="btn-group col-md-3" role="group">
+			<a href="{{ path('sndll_ogc_sacem') }}" class="btn btn-default col-md-12">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+				Retour à la liste
+			</a>
+		</div>
+
+		<div id="btn-modif-cot" class="btn-group col-md-4" role="group">
+			<a href="{{ path('sndll_ogc_sacem_edit', {'sacem_id': sacem.codesacem}) }}" class="btn btn-primary col-md-12">
+				<i class="glyphicon glyphicon-edit"></i>
+				Modifier ces informations
+			</a>
+		</div>
+
+		<div id="btn-supprimer-cot" class="btn-group col-md-3 col-md-offset-2" role="group">
+			<a href="{{ path('sndll_ogc_sacem_delete', {'sacem_id': sacem.codesacem}) }}" class="btn btn-danger col-md-12">
+				<i class="glyphicon glyphicon-trash"></i>
+				Supprimer le centre
+			</a>
+		</div>
+	</div>
+
+{% endblock %}

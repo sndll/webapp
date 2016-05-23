@@ -1,0 +1,224 @@
+{% extends "SNDLLPlatformBundle:Etablissement:etablissementlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Liste{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<div class="panel panel-primary">
+		<div class="panel-heading">Liste des établissements</div>
+		<table class="table"
+               data-toggle="table"
+               data-cache="true"
+               data-url="{{ path('sndll_etablissement') }}/json"
+               data-sort-order="asc"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-query-params="queryParams"
+               data-pagination="true"
+               data-height="500"
+               data-row-style="rowStyle">
+			<thead>
+			<tr>
+				<th data-field="enseigne" data-sortable="true" data-align="center" >Nom de l'enseigne</th>
+				<th data-field="code_adherent" data-sortable="true" data-align="center" >Code adhérent</th>
+				<th data-field="nom" data-sortable="true" data-align="center" >Responsable</th>
+                <th data-field="code_postal" data-sortable="true" data-align="center" >Code Postal</th>
+                <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents" data-align="center" ></th>
+			</tr>
+			</thead>
+
+		</table>
+	</div>
+
+    <div class="row col-md-12">
+        <div id="btn-ajout-eta" class="btn-group col-md-4" role="group">
+            <a href="{{ path('sndll_etablissement_add') }}" class="btn btn-success col-md-12">
+                <i class="glyphicon glyphicon-plus"></i>
+                Ajouter un établissement
+            </a>
+        </div>
+        <div id="btn-export-informations-eta" class="btn-group col-md-5 col-md-offset-3" role="group">
+			<button  type="button" class="btn btn-default dropdown-toggle col-md-12" data-toggle="dropdown" aria-expanded="false">
+				<i class="glyphicon glyphicon-export"></i>
+				Exporter toutes les informations ...
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" data-toggle="modal" data-target="#exportTousEtablissementsModal">De tous les établissements</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#exportEtablissementsAvecCotisationEnCoursModal">Des établissements AVEC cotisation en cours</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#exportEtablissementsSansCotisationEnCoursModal">Des établissements SANS cotisation en cours</a></li>
+			</ul>
+		</div>
+	</div>
+
+    <div class="row col-md-12">
+        <div id="btn-export-coordonnees-eta" class="btn-group col-md-5 col-md-offset-7" role="group">
+            <button  type="button" class="btn btn-default dropdown-toggle col-md-12" data-toggle="dropdown" aria-expanded="false">
+                <i class="glyphicon glyphicon-export"></i>
+                Exporter les coordonnées ...
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#" data-toggle="modal" data-target="#exportAppelCotisationAnneeEnCoursModal">Pour un (r)appel de cotisation de l'année en cours</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#exportAppelCotisationAnneeProchaineModal">Pour un (r)appel de cotisation de l'année prochaine</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportTousEtablissementsModal" tabindex="-1" role="dialog" aria-labelledby="exportTousEtablissementsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exportTousEtablissementsModalLabel">Export de tous les établissements</h4>
+                </div>
+                <div class="modal-body">
+                    Cet export permet de récupérer sous format CSV toutes les informations concernant <strong>TOUS</strong> les établissements.
+                    Une fois exporté, vous devez utiliser un tableur pour exploiter les données (Excel par exemple).
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <a href="{{ path('sndll_etablissement_export_all') }}" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-export"></i>
+                        Exporter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportEtablissementsAvecCotisationEnCoursModal" tabindex="-1" role="dialog" aria-labelledby="exportEtablissementsAvecCotisationEnCoursModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exportEtablissementsAvecCotisationEnCoursModalLabel">Export des établissements avec une cotisation actuellement en cours</h4>
+                </div>
+                <div class="modal-body">
+                    Cet export permet de récupérer sous format CSV toutes les informations concernant <strong>UNIQUEMENT</strong> les établissements <strong>AVEC UNE COTISATION EN COURS</strong>. Cet export ne prend pas en compte les "saisonniers" (c-a-d les établissements qui ont une cotisation dont la date de début est supérieure à la date actuelle).
+                    Une fois exporté, vous devez utiliser un tableur pour exploiter les données (Excel par exemple).
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <a href="{{ path('sndll_etablissement_export_with_cotisation') }}" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-export"></i>
+                        Exporter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportEtablissementsSansCotisationEnCoursModal" tabindex="-1" role="dialog" aria-labelledby="exportEtablissementsSansCotisationEnCoursModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exportEtablissementsSansCotisationEnCoursModalLabel">Export des établissements sans une cotisation actuellement en cours</h4>
+                </div>
+                <div class="modal-body">
+                    Cet export permet de récupérer sous format CSV toutes les informations concernant <strong>UNIQUEMENT</strong> les établissements <strong>SANS UNE COTISATION EN COURS</strong>. Cet export ne prend pas en compte les "saisonniers" (c-a-d les établissements qui ont une cotisation dont la date de début est supérieure à la date actuelle).
+                    Une fois exporté, vous devez utiliser un tableur pour exploiter les données (Excel par exemple).
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <a href="{{ path('sndll_etablissement_export_without_cotisation') }}" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-export"></i>
+                        Exporter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportAppelCotisationAnneeEnCoursModal" tabindex="-1" role="dialog" aria-labelledby="exportAppelCotisationAnneeEnCoursModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exportAppelCotisationAnneeEnCoursModalLabel">Export pour un (r)appel de cotisation de l'année en cours</h4>
+                </div>
+                <div class="modal-body">
+                    Cet export permet de récupérer sous format CSV les différentes coordonnées des établissements nécéssaires à un à un appel ou rappel de cotisation pour l'année en cours. Cet export ne retourne que :
+                    <ul>
+                        <li>Les établissements qui ne sont pas fermés définitivement</li>
+                        <li>Les établissements sans cotisation en cours <strong>ET</strong> sans cotisation future</li>
+                        <li>Les établissements qui ont au moins une cotisation au SNDLL au cours des deux dernières années <strong>OU</strong> les établissements ajoutés/modifiés au cours des 12 derniers mois</li>
+                    </ul>
+                    Une fois exporté, vous devez utiliser un tableur pour exploiter les données (Excel par exemple).
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <a href="{{ path('sndll_etablissement_export_appel_cotisation_annee_en_cours') }}" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-export"></i>
+                        Exporter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportAppelCotisationAnneeProchaineModal" tabindex="-1" role="dialog" aria-labelledby="exportAppelCotisationAnneeProchaineModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exportAppelCotisationAnneeProchaineModalLabel">Export pour un (r)appel de cotisation pour l'année prochaine</h4>
+                </div>
+                <div class="modal-body">
+                    Cet export permet de récupérer sous format CSV les différentes coordonnées des établissements nécéssaires à un appel ou rappel de cotisation pour l'année prochaine. Cet export ne retourne que :
+                    <ul>
+                        <li>Les établissements qui ne sont pas fermés définitivement</li>
+                        <li>Les établissements sans cotisation pour l'année prochaine</li>
+                        <li>Les établissements qui ont au moins une cotisation au SNDLL au cours de l'année précédente <strong>OU</strong> les établissements ajoutés/modifiés au cours des 12 derniers mois</li>
+                    </ul>
+                    Une fois exporté, vous devez utiliser un tableur pour exploiter les données (Excel par exemple).
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <a href="{{ path('sndll_etablissement_export_appel_cotisation_annee_prochaine') }}" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-export"></i>
+                        Exporter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="edit ml10 btn btn-primary" href={{ path('sndll_etablissement') }}/info/' + row.id + ' title="Voir la fiche">',
+                '<i class="glyphicon glyphicon-eye-open"></i>',
+                'Voir la fiche',
+                '</a>'
+            ].join('');
+        }
+
+        function rowStyle(row, index) {
+            var classes = ['active', 'success', 'info', 'warning', 'danger', 'default'];
+
+            var dateCourante = new Date();
+            var dateDebut = new Date(row.date_debut);
+            var dateFin = new Date(row.date_fin);
+
+            if (dateDebut <= dateCourante && dateFin >= dateCourante)
+            {
+                return{
+                    classes: classes[1]
+                };
+            }
+            if (row.id_derniere_cotisation != null)
+            {
+                return{
+                    classes: classes[3]
+                };
+            }
+            return {
+                classes: classes[4]
+            };
+        }
+    </script>
+
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends "SNDLLPlatformBundle:Cotisation:cotisationlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Liste{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<div class="panel panel-primary">
+		<div class="panel-heading">Liste des cotisations</div>
+        <table class="table"
+               data-toggle="table"
+               data-cache="true"
+               data-url="{{ path('sndll_cotisation') }}/json"
+               data-sort-name="id"
+               data-sort-order="desc"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-query-params="queryParams"
+               data-pagination="true"
+               data-height="500"
+               data-row-style="rowStyle">
+            <thead>
+            <tr>
+                <th data-field="id" data-sortable="true" data-align="center" >ID</th>
+                <th data-field="code_adherent" data-sortable="true" data-align="center" >Code adhérent</th>
+                <th data-field="libelle" data-sortable="true" data-align="center" >Type d'adhésion</th>
+                <th data-field="date_debut" data-sortable="true" data-align="center" >Date début</th>
+                <th data-field="date_fin" data-sortable="true" data-align="center" >Date fin</th>
+                <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents" data-align="center" ></th>
+            </tr>
+            </thead>
+
+		</table>
+	</div>
+
+	<div class="row">
+        <div id="btn-ajout-cot" class="btn-group col-md-4" role="group">
+            <a href="{{ path('sndll_cotisation_add') }}" class="btn btn-success col-md-12">
+                <i class="glyphicon glyphicon-plus"></i>
+                Ajouter une cotisation
+            </a>
+        </div>
+        <div id="btn-gerer-ta" class="btn-group col-md-4" role="group">
+            <a href="{{ path('sndll_typeadhesion') }}" class="btn btn-primary col-md-12">
+                <i class="glyphicon glyphicon-wrench"></i>
+                Gérer les types d'adhésions
+            </a>
+        </div>
+        <div id="btn-export-cot" class="btn-group col-md-3 col-md-offset-1" role="group">
+            <button  type="button" class="btn btn-default dropdown-toggle col-md-12" data-toggle="dropdown" aria-expanded="false">
+                <i class="glyphicon glyphicon-export"></i>
+                Exporter ...
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#" data-toggle="modal" data-target="#exportToutesCotisationsModal">Toutes les cotisations</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#exportCotisationsEnCoursModal">Seulement les cotisations actives</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportToutesCotisationsModal" tabindex="-1" role="dialog" aria-labelledby="exportToutesCotisationsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exportToutesCotisationsModalLabel">Export de toutes les cotisations</h4>
+                </div>
+                <div class="modal-body">
+                    Cet export permet de récupérer sous format CSV toutes les informations concernant <strong>TOUTES</strong> les cotisations.
+                    Une fois exporté, vous devez utiliser un tableur pour exploiter les données (Excel par exemple).
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <a href="{{ path('sndll_cotisation_export_all') }}" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-export"></i>
+                        Exporter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportCotisationsEnCoursModal" tabindex="-1" role="dialog" aria-labelledby="exportCotisationsEnCoursModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exportCotisationsEnCoursModalLabel">Export des cotisations en cours</h4>
+                </div>
+                <div class="modal-body">
+                    Cet export permet de récupérer sous format CSV toutes les informations concernant <strong>UNIQUEMENT</strong> les cotisations en cours.
+                    Une fois exporté, vous devez utiliser un tableur pour exploiter les données (Excel par exemple).
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <a href="{{ path('sndll_cotisation_export_encours') }}" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-export"></i>
+                        Exporter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="edit ml10 btn btn-primary" href={{ path('sndll_cotisation') }}/info/' + row.id + ' title="Voir cette cotisation">',
+                '<i class="glyphicon glyphicon-eye-open"></i>',
+                'Voir la cotisation',
+                '</a>'
+            ].join('');
+        }
+
+        function rowStyle(row, index) {
+            var classes = ['active', 'success', 'info', 'warning', 'danger', 'default'];
+
+            var dateCourante = new Date();
+            var dateDebut = new Date(row.date_debut);
+            var dateFin = new Date(row.date_fin);
+
+            if (dateDebut <= dateCourante && dateFin >= dateCourante)
+            {
+                return{
+                    classes: classes[1]
+                };
+            }else{
+                return{
+                    classes: classes[5]
+                };
+            }
+        }
+    </script>
+{% endblock %}

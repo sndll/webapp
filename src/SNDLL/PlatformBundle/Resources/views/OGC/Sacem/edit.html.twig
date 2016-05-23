@@ -1,0 +1,24 @@
+{% extends "SNDLLPlatformBundle:OGC:ogclayout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Modifier
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="alert alert-warning" role="alert">
+        <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Vous éditez un les informations concernant un centre Sacem existant.
+        </p>
+    </div>
+
+    {{ include("SNDLLPlatformBundle:OGC/Sacem:form.html.twig") }}
+    <p>
+        <a href="{{ path('sndll_ogc_sacem_view', {'sacem_id': sacem.codesacem}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la fiche
+        </a>
+    </p>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "SNDLLPlatformBundle:OGC:ogclayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Liste{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<div class="panel panel-primary">
+		<div class="panel-heading">Liste des centres SACEM</div>
+        <table class="table"
+               data-toggle="table"
+               data-sort-name="code_adherent"
+               data-sort-order="desc"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-pagination="true"
+               data-height="500"
+               data-row-style="rowStyle">
+            <thead>
+            <tr>
+                <th data-field="code_sacem" data-sortable="true" data-align="center">Code du centre SACEM</th>
+                <th data-field="libelle" data-sortable="true" data-align="center">Libelle</th>
+                <th data-field="responsable" data-sortable="true" data-align="center">Responsable</th>
+                <th data-field="bouton" data-align="center"></th>
+            </tr>
+            </thead>
+
+			<tbody>
+			{% for sacem in listeSacem %}
+				<tr {% if etablissement.sacem == sacem %} class ="info" {% else %} class ="default" {% endif %} >
+					<td>
+                        {{ sacem.codesacem }}
+					</td>
+					<td>
+						{{ sacem.libelle }}
+					</td>
+					<td>
+						{{ sacem.nomresponsable }} {{ sacem.prenomresponsable }}
+					</td>
+                    <td>
+                        {% if etablissement.sacem != sacem %}
+                            <a href="{{ path('sndll_ogc_sacem_etablissement_assoc', {'eta_id': etablissement.id, 'sacem_id': sacem.codesacem}) }}" class="btn btn-primary">
+                                <i class="glyphicon glyphicon-pushpin"></i>
+                                Attacher ce centre
+                            </a>
+                        {% endif %}
+                    </td>
+				</tr>
+			{% else %}
+				<tr class="warning"><td>Pas (encore !) de centre SACEM</td></tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<p>
+		<a href="{{ path('sndll_etablissement_view', {'eta_id': etablissement.id}) }}" class="btn btn-default">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+			Retour à la fiche
+		</a>
+	</p>
+{% endblock %}

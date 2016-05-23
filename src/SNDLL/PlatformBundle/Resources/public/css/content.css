@@ -1,0 +1,16 @@
+.panel-body {
+    background-color: #eeeeee;
+}
+
+.panel-footer {
+    background-color: #eeeeee;
+}
+
+#btn-modif-eta, #btn-ajout-con, #btn-rattacher-sacem, #btn-attacher-sacem, #btn-ajouter-cot, #btn-retour-liste-eta, #btn-supprimer-eta, #btn-print-eta, #btn-retour-liste-cot, #btn-print-cot, #btn-modif-cot, #btn-add-cot, #btn-modif-cot, #btn-add-cot, #btn-export-cot, #btn-ajout-eta, #btn-id-temp-generer, #btn-page-login-site {
+    margin-bottom: 20px;
+}
+
+.info-form p
+{
+    padding: 20px;
+}
